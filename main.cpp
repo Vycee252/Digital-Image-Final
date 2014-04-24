@@ -10,9 +10,22 @@ using namespace std;
 string Pvalue, Comment;
 int size1, size2, grayscale;
 
+// Prototypes -------------------------------------------------------
+int getOption(); // Prompts for and gets the next option
 int** readImage(string name);
 void outputImage(int** image, string name);
 int** edgeDetection(int** image);
+
+enum Options
+// Each constant represent a task.
+{
+    OUTPUT = 1,
+    EDGE = 2,
+    OPT3 = 3,
+    OPT4 = 4,
+    EXIT = 5,
+};
+
 
 int main()
 {
@@ -26,50 +39,66 @@ int main()
     int** image = readImage(fname);
 
 
-
     do{
-
-        cout<<"**********************************************************"<<endl;
-        cout<<"*                                                        *"<<endl;
-        cout<<"*  1: Option 1                                           *"<<endl;
-        cout<<"*  2: Option 2                                           *"<<endl;
-        cout<<"*  3: Option 3                                           *"<<endl;
-        cout<<"*  4: Option 4                                           *"<<endl;
-        cout<<"*  5: Exit                                               *"<<endl;
-        cout<<"*                                                        *"<<endl;
-        cout<<"**********************************************************"<<endl;
-        cout<<"Choice: ";
-        cin>>choice;
-        cout<<endl;
+        choice = getOption();
 
         switch(choice)
         {
-            case 1:
-                cout<<"Case 1"<<endl;
+            case OUTPUT:
                 outputImage(image, fname);
                 break;
-            case 2:
+
+            case EDGE:
                 cout<<"Case 2"<<endl;
                 newImage = edgeDetection(image);
                 outputImage(newImage, fname);
                 break;
-            case 3:
+
+            case OPT3:
                 cout<<"Case 3"<<endl;
                 break;
-            case 4:
+            case OPT4:
+
                 cout<<"Case 4"<<endl;
                 break;
-            case 5:
+
+            case EXIT:
+                cout << "Exiting the program." << endl;
                 break;
+
             default:
                 cout<<"Invalid Choice"<<endl;
                 break;
-        }
-    }while(choice != 5);
+
+        } // end of switch
+
+    }
+    while(choice != EXIT); // end of do-while
 
     return 0;
 }
 
+
+int getOption()
+{
+    cout << "\n\n\n" << endl;
+    cout<<"**********************************************************"<<endl;
+    cout<<"*  1: Output Image                                       *"<<endl;
+    cout<<"*  2: Edge Detection                                     *"<<endl;
+    cout<<"*  3: Option 3                                           *"<<endl;
+    cout<<"*  4: Option 4                                           *"<<endl;
+    cout<<"*  5: Exit                                               *"<<endl;
+    cout<<"**********************************************************"<<endl;
+    cout<<"Choice: ";
+
+    int choice;
+
+    cin>> choice;
+
+    cin.ignore();
+
+    return choice;
+}
 
 int** readImage(string name)
 {
